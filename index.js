@@ -28,7 +28,6 @@ app.post('/', async (req, res) => {
         max_tokens: 100,
         temperature: 0,
     })
-    console.log(response.data)
 
     if (response.data) {
         if (response.data.choices) {
@@ -39,9 +38,6 @@ app.post('/', async (req, res) => {
             }
         }
     }
-    // res.json({
-    //     message: 'working!'
-    // });
 });
 
 app.listen(port, () => {
