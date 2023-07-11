@@ -10,7 +10,7 @@ function App(){
 
     fetch('http://localhost:3001/', {
       method: 'POST',
-      hedaers: {
+      headers: {
         'Content-Type':'application/json'
       },
       body: JSON.stringify({ message })
