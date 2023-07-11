@@ -7,20 +7,23 @@ function App(){
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    fetch('http://localhost:3001/', {
-      method: 'POST',
+  
+    fetch("http://localhost:3001/", {
+      method: "POST",
       headers: {
-        'Content-Type':'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message })
+      body: JSON.stringify({ message }),
     })
-    .then((res) => res.json())
-    .then((data) => setResponse(data.message))
-
-    console.log("response", response)
-    console.log("message", message)
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        setResponse(data.message);
+        console.log("response", data.message); // Log the response here
+      })
+      .catch((error) => console.error(error));
+  
+    console.log("message", message); // Log the message here
+  };  
 
   return (
     <div className="App">

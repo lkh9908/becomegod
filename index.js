@@ -41,14 +41,10 @@ app.post('/', async function handler(req, res) {
       body: JSON.stringify(payload),
     });
 
-    // const response = {body: JSON.stringify('kakaka')}
-    // const json = {body: JSON.stringify('kakaka')}
-  
+      
     const json = await response.json();
     
     res.status(200).json(json);
-    console.log("here", res)
-    return
 
   });
 
