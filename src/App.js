@@ -17,6 +17,9 @@ function App(){
     })
     .then((res) => res.json())
     .then((data) => setResponse(data.message))
+
+    console.log("response", response)
+    console.log("message", message)
   }
 
   return (
