@@ -2,18 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const OpenAI = require('openai')
-const { Configuration, OpenAIApi } = OpenAI
 
 const app = express();
 const port = 3001;
-
-
-const configuration = new Configuration({
-    organization: 'org-LaMHYGid168G2BkQ5wn6wV5r',
-    apiKey: process.env.OPENAI_API_KEY
-})
-const openai = new OpenAIApi(configuration)
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -40,6 +31,13 @@ app.post('/', async function handler(req, res) {
       method: "POST",
       body: JSON.stringify(payload),
     });
+
+    // const response = {
+    //     status: 200,
+    //     json: () => Promise.resolve({ message: "Dummy response message" }),
+    //   };
+
+    console.log(response)
 
       
     const json = await response.json();
