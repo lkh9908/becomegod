@@ -20,6 +20,7 @@ app.use(cors());
 
 app.post('/', async (req, res) => {
 
+    console.log('api key', process.env.OPENAI_API_KEY)
     const { message } = req.body
     const response = await openai.createCompletion({
         model: 'text-davinci-003',
@@ -38,9 +39,9 @@ app.post('/', async (req, res) => {
             }
         }
     }
-    res.json({
-        message: 'working!'
-    });
+    // res.json({
+    //     message: 'working!'
+    // });
 });
 
 app.listen(port, () => {
