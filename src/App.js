@@ -1,43 +1,47 @@
-import React, {useState} from "react";
-import './App.css'
+import React, { useState } from "react";
+import './App.css';
 
-function App(){
-  const [message, setMessage] = useState('')
-  const [response, setResponse] = useState('')
+function App() {
+  const [message, setMessage] = useState('');
+  const [response, setResponse] = useState('');
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-  
-    fetch("https://becomegod.vercel.app/", {
-      method: "POST",
+
+    const payload = {
+      model: "text-davinci-003",
+      prompt: message,
+      temperature: 0.7,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      max_tokens: 200,
+      n: 1,
+    };
+
+    const response = await fetch("https://api.openai.com/v1/completions", {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
       },
-      body: JSON.stringify({ message }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setResponse(data.message);
-        console.log("response", data.message); // Log the response here
-      })
-      .catch((error) => console.error(error));
-  
-    console.log("message", message); // Log the message here
-  };  
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+
+    const json = await response.json();
+
+    setResponse(json.choices[0].text);
+  }
 
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
-
         <textarea value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
         <button type="submit">Submit</button>
-
       </form>
-
       <div>{response}</div>
-     
     </div>
   )
 }
 
-export default App
+export default App;
