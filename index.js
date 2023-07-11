@@ -47,8 +47,8 @@ app.post('/', async function handler(req, res) {
     const json = await response.json();
     
     res.status(200).json(json);
-    // console.log("here", res)
-    // return res
+    console.log("here", res)
+    return
 
   });
 
