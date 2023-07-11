@@ -32,6 +32,11 @@ app.post('/', async function handler(req, res) {
       body: JSON.stringify(payload),
     });
 
+    // const response = {
+    //     status: 200,
+    //     json: () => Promise.resolve({ message: "Dummy response message" }),
+    //   };
+
     console.log(response)
 
       

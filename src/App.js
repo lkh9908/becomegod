@@ -8,7 +8,7 @@ function App(){
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    fetch("http://localhost:3001/", {
+    fetch("https://becomegod.vercel.app/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
