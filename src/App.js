@@ -3,6 +3,7 @@ import './App.css';
 
 function App() {
   const [message, setMessage] = useState('');
+  const [key, setKey] = useState('');
   const [response, setResponse] = useState('');
 
   async function handleSubmit(e) {
@@ -22,13 +23,13 @@ function App() {
     const response = await fetch("https://api.openai.com/v1/completions", {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? "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"}`,
+        Authorization: `Bearer ${key ?? ""}`,
       },
       method: "POST",
       body: JSON.stringify(payload),
     });
 
-    console.log('logging key', process.env.OPENAI_API_KEY)
+    console.log('logging key', key)
 
     const json = await response.json();
 
@@ -39,6 +40,7 @@ function App() {
     <div className="App">
       <form onSubmit={handleSubmit}>
         <textarea value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+        <textarea value={key} onChange={(e) => setKey(e.target.value)}></textarea>
         <button type="submit">Submit</button>
       </form>
       <div>{response}</div>
