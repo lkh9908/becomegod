@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import './App.css';
+import "./App.css";
 
 function App() {
-  const [message, setMessage] = useState('');
-  const [key, setKey] = useState('');
-  const [response, setResponse] = useState('');
+  const [message, setMessage] = useState("");
+  const [key, setKey] = useState("");
+  const [response, setResponse] = useState("");
+  const [model, setModel] = useState("text-davinci-003");
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     const payload = {
-      model: "text-davinci-003",
+      model,
       prompt: message,
       temperature: 0.7,
       top_p: 1,
@@ -29,8 +30,6 @@ function App() {
       body: JSON.stringify(payload),
     });
 
-    console.log('logging key', key)
-
     const json = await response.json();
 
     setResponse(json.choices[0].text);
@@ -39,13 +38,39 @@ function App() {
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
-        <textarea value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
-        <textarea value={key} onChange={(e) => setKey(e.target.value)}></textarea>
+        <div>
+          <label htmlFor="message">Message:</label>
+          <textarea
+            id="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          ></textarea>
+        </div>
+        <div>
+          <label htmlFor="key">API Key:</label>
+          <textarea
+            id="key"
+            value={key}
+            onChange={(e) => setKey(e.target.value)}
+          ></textarea>
+        </div>
+        <div>
+          <label htmlFor="model">Model:</label>
+          <select
+            id="model"
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+          >
+            <option value="text-davinci-003">Davinci</option>
+            <option value="text-davinci-003">GPT-3.5</option>
+            <option value="davinci-codex">DALL·E</option>
+          </select>
+        </div>
         <button type="submit">Submit</button>
       </form>
       <div>{response}</div>
     </div>
-  )
+  );
 }
 
 export default App;
