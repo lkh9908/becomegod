@@ -28,6 +28,8 @@ function App() {
       body: JSON.stringify(payload),
     });
 
+    console.log('logging key', process.env.OPENAI_API_KEY)
+
     const json = await response.json();
 
     setResponse(json.choices[0].text);
