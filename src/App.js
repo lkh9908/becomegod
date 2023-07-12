@@ -4,7 +4,6 @@ import "./App.css";
 function App() {
   const [message, setMessage] = useState("");
   const [key, setKey] = useState("");
-  const [response, setResponse] = useState("");
   const [model, setModel] = useState("text-davinci-003");
   const [conversation, setConversation] = useState([]);
 
@@ -48,7 +47,6 @@ function App() {
       newMessage,
       newAIResponse,
     ]);
-    setResponse(newResponse);
     setMessage("");
   }
 
@@ -57,7 +55,7 @@ function App() {
       <h2>Conversation:</h2>
       <ul className="conversation">
         {conversation.map((msg, index) => (
-          <li key={index} className={msg.role}>
+          <li key={index} className={`message ${msg.role}`}>
             {msg.content}
           </li>
         ))}
@@ -87,13 +85,11 @@ function App() {
             onChange={(e) => setModel(e.target.value)}
           >
             <option value="text-davinci-003">Davinci</option>
-            <option value="text-davinci-003">GPT-3.5</option>
-            <option value="davinci-codex">DALL·E</option>
+            <option value="gpt-3.5-turbo-16k-0613">GPT-3.5</option>
           </select>
         </div>
         <button type="submit">Submit</button>
       </form>
-      <div>{response}</div>
     </div>
   );
 }
