@@ -6,6 +6,7 @@ function App() {
   const [key, setKey] = useState("");
   const [response, setResponse] = useState("");
   const [model, setModel] = useState("text-davinci-003");
+  const [conversation, setConversation] = useState([]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,12 +32,36 @@ function App() {
     });
 
     const json = await response.json();
+    const newResponse = json.choices[0].text;
 
-    setResponse(json.choices[0].text);
+    const newMessage = {
+      role: "user",
+      content: message,
+    };
+    const newAIResponse = {
+      role: "ai",
+      content: newResponse,
+    };
+
+    setConversation((prevConversation) => [
+      ...prevConversation,
+      newMessage,
+      newAIResponse,
+    ]);
+    setResponse(newResponse);
+    setMessage("");
   }
 
   return (
     <div className="App">
+      <h2>Conversation:</h2>
+      <ul className="conversation">
+        {conversation.map((msg, index) => (
+          <li key={index} className={msg.role}>
+            {msg.content}
+          </li>
+        ))}
+      </ul>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="message">Message:</label>
